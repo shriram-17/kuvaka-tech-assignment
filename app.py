@@ -3,7 +3,7 @@ from fastapi.openapi.utils import get_openapi
 from src.api.v1.auth import router as auth_router
 from src.api.v1.user import router as user_router
 from src.api.v1.chatroom import router as chatroom_router
-
+from src.api.v1.subscription import router as subscription_router
 
 from src.models.user import User
 from src.models.chatroom import Chatroom, Message
@@ -23,6 +23,7 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(chatroom_router)
+app.include_router(subscription_router)
 
 # Override OpenAPI schema to fix Swagger UI
 def custom_openapi():

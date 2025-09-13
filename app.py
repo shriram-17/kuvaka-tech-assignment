@@ -19,6 +19,40 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Gemini Backend Clone - Kuvaka Tech")
 
+from fastapi.openapi.utils import get_openapi
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+
+    # Remove default OAuth2 password flow UI
+    openapi_schema["components"]["securitySchemes"] = {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+            "description": "Enter: **Bearer <your_jwt_token>**\n\nGet token via `POST /auth/verify-otp` after signing up and receiving OTP."
+        }
+    }
+
+    # Apply to all protected endpoints
+    for path in openapi_schema["paths"].values():
+        for method in path.values():
+            if "security" in method:
+                method["security"] = [{"BearerAuth": []}]
+
+    app.openapi_schema = openapi_schema
+    return openapi_schema
+
+app.openapi = custom_openapi 
+
 # Dependency for DB session
 def get_db():
     db = SessionLocal()

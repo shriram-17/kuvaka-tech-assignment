@@ -467,5 +467,3 @@ logger.warning(f"⚠️ Rate limit exceeded for user {user.id}")
 | **Payments** | Stripe | Subscription management |
 | **Authentication** | JWT + OTP | Secure user auth |
 | **Deployment** | Railway | Cloud hosting platform |
-
-[16](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/32411847/c9a79827-608e-4c28-9ec4-b6f0301201d0/auth.py)

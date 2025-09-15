@@ -321,7 +321,6 @@ POST https://kuvaka-tech-assignment-production.up.railway.app/auth/forgot-passwo
 POST https://kuvaka-tech-assignment-production.up.railway.app/auth/change-password
 Authorization: Bearer {jwt_token}
 {
-  "old_password": "current_password",
   "new_password": "new_secure_password"
 }
 ```
